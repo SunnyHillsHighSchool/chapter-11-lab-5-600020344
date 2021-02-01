@@ -1,10 +1,30 @@
-class Main {
-  public static void main(String[] args) {
-    System.out.println("ISBN:  096548534X is valid "+Book.isValidISBN("096548534X"));
-
-    System.out.println("ISBN:  12387658X is valid "+Book.isValidISBN("12387658X"));
+public class Book
+{
+  
+  public static boolean isValidISBN(String isbn)
+  {
     
-    System.out.println("ISBN:  0328931829 is valid "+Book.isValidISBN("0328931829"));
-
+    //add your code here
+    if (isbn.length()!=10)
+      return false;
+    for (int i = 0; i<isbn.length()-1; i++)
+    {
+      if (!(Character.isDigit(isbn.charAt(i))))
+        return false;
+    }    
+    if(!(Character.isDigit(isbn.charAt(9)) || isbn.charAt(9)=='X'))
+        return false;
+    int sum = 0;
+    for (int j = 0; j<isbn.length()-1;j++)
+    {
+      sum+=(Character.getNumericValue(isbn.charAt(j)) * (10-j));
+    }
+    if (isbn.charAt(9)=='X')
+      sum+=10;
+    else
+      sum+=Character.getNumericValue(isbn.charAt(9));
+    if (sum%11==0)
+      return true;
+    return false;
   }
 }
